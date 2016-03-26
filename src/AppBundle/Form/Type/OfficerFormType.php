@@ -33,9 +33,11 @@ class OfficerFormType extends AbstractType
             ))
             ->add('photoFile', 'file', [
                 'label' => 'Фото',
+                'required' => false
             ])
             ->add('mediaFile', 'file', [
                 'label' => 'Аудио/Видео',
+                'required' => false
             ]);
     }
 

@@ -28,16 +28,15 @@ class DefaultController extends Controller
     public function handleOfficerInfoAction(Request $request)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
-var_dump($request);die;
+
         $officer = new Officer();
         $form = $this->createForm(new OfficerFormType(), $officer);
 
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
             if ($form->isValid()) {
-                foreach ($request->files as $file) {
-                    var_dump($file);die;
-                }
+                $officer->setPhoto($this->saveFile($officer->getPhotoFile(), 'photo'));
+                $officer->setMedia($this->saveFile($officer->getMediaFile(), 'media'));
 
                 $em->persist($officer);
                 $em->flush();
@@ -57,12 +56,12 @@ var_dump($request);die;
         ));
     }
 
-    private function saveFile($file)
+    private function saveFile($file, $type)
     {
-        $mimeTypeArray = ['image/jpg', 'image/png', 'image/jpeg', 'application/pdf', 'video/mp4', 'video/3gpp'];
+        $mimeTypeArray = ['image/jpg', 'image/png', 'image/jpeg'];
 
         if ($file) {
-            if (in_array($file->getMimeType(), $mimeTypeArray)) {
+            if (in_array($file->getMimeType(), $mimeTypeArray) || $type == 'media') {
 
                 $content = file_get_contents($file);
                 $name = '/uploads/' . time() . '/' . $file->getClientOriginalName();

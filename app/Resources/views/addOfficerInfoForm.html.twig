@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <form action="{{ path('handle_officer_info') }}" method="post" class="form-add">
+    <form action="{{ path('handle_officer_info') }}" method="post" {{ form_enctype(form) }} class="form-add">
         <fieldset>
             <div class="form-group">
                 {{ form_label(form.fio) }}

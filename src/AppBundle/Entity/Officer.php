@@ -129,6 +129,16 @@ class Officer
     }
 
     /**
+     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
+     */
+    public function setMediaFile($file)
+    {
+        $this->mediaFile = $file;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getMedia()
