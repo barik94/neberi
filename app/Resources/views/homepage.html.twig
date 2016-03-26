@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block sidebar %}
+    <div class="officers">
+        <ul>
+            {% for officer in officers %}
+                <li>
+                    <a href="#">{{ officer.fio }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h2>Ресурс по борьбе с неправомерными действиями должностных лиц!</h2>
+{% endblock %}

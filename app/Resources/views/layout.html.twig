@@ -7,6 +7,17 @@
     <link href="{{ asset('bundles/app/css/styles.css') }}" type="text/css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">{% block content %}{% endblock %}</div>
+    <header>
+        <div class="logo-holder">
+            <a href="{{ path('homepage') }}" class="logo">
+                <span class="ne">Не </span><span class="stars">***</span><span class="i">и</span>
+                <h5>не бери да не судим будешь</h5>
+            </a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="sidebar">{% block sidebar %}{% endblock %}</div>
+        <div class="content">{% block content %}{% endblock %}</div>
+    </div>
 </body>
 </html>
