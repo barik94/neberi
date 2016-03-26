@@ -1,0 +1,54 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.form-add {
+    width: 240px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.form-add .actions {
+    margin-top: 20px;
+}
+
+.alert.alert-error li {
+    list-style: none;
+}
+
+.invisible {
+    display: none;
+}
+
+.form-request {
+    margin-top: 40px;
+}
+
+.form-request .form-group {
+    float: left;
+}
+
+.form-request label {
+    display: inline;
+    vertical-align: super;
+    margin-right: 20px;
+}
+
+.form-request button {
+    margin-left: 20px;
+}
+
+table tr:hover {
+    cursor: pointer;
+    color: darkcyan;
+}
+
+table {
+    margin-top: 50px;
+}
+
+form + table {
+    margin-top: 0;
+}

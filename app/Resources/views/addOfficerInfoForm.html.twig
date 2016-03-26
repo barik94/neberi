@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <form action="{{ path('handle_officer_info') }}" method="post" class="form-add">
+        <fieldset>
+            <div class="form-group">
+                {{ form_label(form.fio) }}
+                {{ form_widget(form.fio) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.token) }}
+                {{ form_widget(form.token) }}
+            </div>
+            {{ form_row(form.photoFile) }}
+            {{ form_row(form.mediaFile) }}
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Разместить</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
