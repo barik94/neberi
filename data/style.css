@@ -7,13 +7,13 @@ html, body {
 }
 .container {
     width: 800px;
-    height: 800px;
-    background: url("bg.png");
-    background-size: 800px 800px;
+    height: 1000px;
+    background: url("bg.jpg");
+    background-size: 800px auto;
 }
 .name {
     position: relative;
-    top: 93px;
+    top: 100px;
     left: 400px;
     color: #fff;
     font-size: 30px;
@@ -23,7 +23,7 @@ html, body {
 }
 .text {
     position: relative;
-    top: 535px;
+    top: 585px;
     left: 505px;
     color: #000;
     font-size: 18px;
