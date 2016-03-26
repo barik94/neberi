@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <form action="{{ path('handle_officer_info') }}" method="post" {{ form_enctype(form) }} class="form-add">
+    <form action="{{ path('handle_report') }}" method="post" {{ form_enctype(form) }} class="form-add">
         <fieldset>
             <div class="form-group">
                 {{ form_label(form.fio) }}
@@ -11,6 +11,7 @@
                 {{ form_label(form.token) }}
                 {{ form_widget(form.token) }}
             </div>
+            {{ form_row(form.message, {'attr': {'class': 'input-lg', 'rows': 6}}) }}
             {{ form_row(form.photoFile) }}
             {{ form_row(form.mediaFile) }}
             <div class="actions">

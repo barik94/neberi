@@ -1,11 +1,16 @@
 {% extends "layout.html.twig" %}
 
 {% block sidebar %}
+    <div class="link-holder">
+        <a href="{{ path('handle_report') }}" class="btn btn-large btn-primary">
+            Пожаловаться +
+        </a>
+    </div>
     <div class="officers">
         <ul>
             {% for officer in officers %}
                 <li>
-                    <a href="#">{{ officer.fio }}</a>
+                    <a href="#">{{ officer.fio }} ({{ officer.amountComplaints }})</a>
                 </li>
             {% endfor %}
         </ul>

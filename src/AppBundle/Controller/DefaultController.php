@@ -3,7 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Officer;
-use AppBundle\Form\Type\OfficerFormType;
+use AppBundle\Entity\Report;
+use AppBundle\Form\Type\ReportFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -27,36 +28,47 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/handle", name="handle_officer_info")
+     * @Route("/handle", name="handle_report")
      */
-    public function handleOfficerInfoAction(Request $request)
+    public function handleReportAction(Request $request)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
 
-        $officer = new Officer();
-        $form = $this->createForm(new OfficerFormType(), $officer);
+        $report = new Report();
+        $form = $this->createForm(new ReportFormType(), $report);
 
         if ($request->getMethod() == 'POST') {
             $form->submit($request);
             if ($form->isValid()) {
-                $officer->setPhoto($this->saveFile($officer->getPhotoFile(), 'photo'));
-                $officer->setMedia($this->saveFile($officer->getMediaFile(), 'media'));
+                if (!$officer = $em->getRepository('AppBundle:Officer')->findOneByToken($report->getToken())) {
+                    $officer = new Officer();
+                    $officer->setToken($report->getToken());
+                }
 
+                $officer->incrementAmount();
+                $officer->setFio($report->getFio());
+
+                $report->setPhoto($this->saveFile($report->getPhotoFile(), 'photo'));
+                $report->setMedia($this->saveFile($report->getMediaFile(), 'media'));
+                $report->setOfficer($officer);
+
+                $em->persist($report);
+                $officer->addReport($report);
                 $em->persist($officer);
                 $em->flush();
 
-                return $this->render('addOfficerInfoForm.html.twig', array(
-                    'form' => $this->createForm(new OfficerFormType())->createView(),
+                return $this->render('leaveReportForm.html.twig', array(
+                    'form' => $this->createForm(new ReportFormType())->createView(),
                 ));
             } else {
-                    return $this->render('addOfficerInfoForm.html.twig', array(
-                        'form' => $form->createView(),
-                    ));
+                return $this->render('leaveReportForm.html.twig', array(
+                    'form' => $form->createView(),
+                ));
             }
         }
 
-        return $this->render('addOfficerInfoForm.html.twig', array(
-            'form' => $this->createForm(new OfficerFormType())->createView(),
+        return $this->render('leaveReportForm.html.twig', array(
+            'form' => $this->createForm(new ReportFormType())->createView(),
         ));
     }
 

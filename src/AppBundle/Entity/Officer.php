@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,18 +29,14 @@ class Officer
     protected $token;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\OneToMany(targetEntity="Report", mappedBy="officer")
      */
-    protected $photo;
-
-    protected $photoFile;
+    protected $reports;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="amount", type="integer", nullable=false, options={"default"=1})
      */
-    protected $media;
-
-    protected $mediaFile;
+    protected $amountComplaints = 1;
 
     /**
      * Get id
@@ -87,70 +84,59 @@ class Officer
     }
 
     /**
-     * @return string
+     * @return integer
      */
-    public function getPhoto()
+    public function getAmountComplaints()
     {
-        return $this->photo;
+        return $this->amountComplaints;
     }
 
     /**
-     * @param string $photo
+     * @param integer $amount
      */
-    public function setPhoto($photo)
+    public function setAmountComplaints($amount)
     {
-        $this->photo = $photo;
+        $this->amountComplaints = $amount;
+    }
+
+    public function incrementAmount()
+    {
+        $this->amountComplaints++;
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
+     * Add report
+     *
+     * @param Report $report
+     * @return Officer
      */
-    public function getPhotoFile()
+    public function addReport(Report $report)
     {
-        return $this->photoFile;
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
-     */
-    public function setPhotoFile($file)
-    {
-        $this->photoFile = $file;
+        $this->reports[] = $report;
 
         return $this;
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
+     * Remove report
+     *
+     * @param Report $report
+     * @return Officer
      */
-    public function getMediaFile()
+    public function removeReport(Report $report)
     {
-        return $this->mediaFile;
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
-     */
-    public function setMediaFile($file)
-    {
-        $this->mediaFile = $file;
+        $this->reports->removeElement($report);
 
         return $this;
     }
 
     /**
-     * @return string
+     * Get reports
+     *
+     * @return Collection|Report[]
      */
-    public function getMedia()
+    public function getReports()
     {
-        return $this->media;
-    }
-
-    /**
-     * @param string $media
-     */
-    public function setMedia($media)
-    {
-        $this->media = $media;
+        return $this->reports;
     }
 }

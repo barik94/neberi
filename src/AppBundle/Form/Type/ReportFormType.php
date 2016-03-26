@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class OfficerFormType extends AbstractType
+class ReportFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,6 +30,9 @@ class OfficerFormType extends AbstractType
                         'message' => "Укажите номер жетона"
                     ]),
                 ),
+            ))
+            ->add('message', 'textarea', array(
+                'label' => 'Сообщение'
             ))
             ->add('photoFile', 'file', [
                 'label' => 'Фото',
